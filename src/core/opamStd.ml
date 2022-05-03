@@ -984,7 +984,9 @@ module OpamSys = struct
     lazy (
       let ancestors = Lazy.force (windows_ancestor_process_names ()) in
       match (List.map String.lowercase_ascii ancestors |>
-              List.filter_map categorize_process) with
+              List.map categorize_process |>
+              List.filter (function Some _ -> true | None -> false) |>
+              List.map (function Some v -> v | None -> assert false)) with
       | [] -> None
       | Reject :: _ -> None
       | Accept most_relevant_shell :: _ -> Some most_relevant_shell
