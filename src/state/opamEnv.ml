@@ -562,7 +562,7 @@ let if_interactive_script shell t e =
   | SH_fish ->
     Printf.sprintf "if isatty\n  %s%send\n" t @@ ielse e
   | SH_win_cmd ->
-    Printf.sprintf "echo %%cmdcmdline%% | find /i \"%%~0\" >nul\nif errorlevel 1 (\n%s%s)\n" t @@ ielse_cmd e
+    Printf.sprintf "timeout 0 >nul 2>nul\nif not errorlevel 1 (\n%s%s)\n" t @@ ielse_cmd e
   | SH_pwsh | SH_win_powershell ->
     Printf.sprintf "if ([Environment]::UserInteractive) {\n  %s%s}\n" t @@ ielse_pwsh e
 
