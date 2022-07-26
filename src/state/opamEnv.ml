@@ -535,9 +535,9 @@ let source root shell f =
     Printf.sprintf "[[ ! -r %s ]] || source %s  > /dev/null 2> /dev/null\n"
       fname fname
   | SH_win_cmd ->
-    Printf.sprintf "if exist \"%s\" ( \"%s\" >NUL 2>NUL )\n" fname fname
+    Printf.sprintf "if exist \"%s\" call \"%s\" >NUL 2>NUL\n" fname fname
   | SH_pwsh | SH_win_powershell ->
-    Printf.sprintf "& \"%s\" > $null 2> $null\n" fname
+    Printf.sprintf ". \"%s\" > $null 2> $null\n" fname
 
 let if_interactive_script shell t e =
   let ielse else_opt = match else_opt with
