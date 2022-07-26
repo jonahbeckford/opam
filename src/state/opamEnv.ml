@@ -564,7 +564,7 @@ let if_interactive_script shell t e =
   | SH_win_cmd ->
     Printf.sprintf "timeout 0 >nul 2>nul\nif not errorlevel 1 (\n%s%s)\n" t @@ ielse_cmd e
   | SH_pwsh | SH_win_powershell ->
-    Printf.sprintf "if ([Environment]::UserInteractive) {\n  %s%s}\n" t @@ ielse_pwsh e
+    Printf.sprintf "if ([Environment]::UserInteractive -and -not [Console]::IsInputRedirected) {\n  %s%s}\n" t @@ ielse_pwsh e
 
 let init_script root shell =
   let interactive =
