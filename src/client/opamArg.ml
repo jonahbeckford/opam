@@ -1026,8 +1026,8 @@ let print_short_flag cli validity =
 
 let shell_opt cli validity =
   let enum = [
-    "bash",SH_bash;
-    "sh",SH_sh;
+    None,"bash",SH_bash;
+    None,"sh",SH_sh;
     None,"csh",SH_csh;
     None,"zsh",SH_zsh;
     None,"fish",SH_fish;
